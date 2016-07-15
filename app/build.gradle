@@ -15,11 +15,18 @@
  */
 
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
 
 repositories {
     maven { url 'http://repo1.maven.org/maven2' }
     jcenter { url "http://jcenter.bintray.com/" }
 }
+
+
+// Edit covered scope if needed
+// For my part I like having the coverage of both application and tests
+
+
 
 android {
     compileSdkVersion 21
@@ -45,8 +52,7 @@ android {
             testCoverageEnabled false
         }
     }
-    productFlavors {
-    }
+
 
    // sourceSets {
      //   unitTest {
@@ -77,6 +83,42 @@ android {
     }
 }
 
+jacoco {
+    // Use this version for upper ones are broken (with Gradle)
+    // https://github.com/jacoco/jacoco/issues/288
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+def coverageSourceDirs = [
+        '../src/main/java/com/example/android/testing/unittesting/BasicSample/EmailValidator.class'
+]
+
+task jacocoTestReport(type: JacocoReport, dependsOn: "test") {
+    group = "Reporting"
+
+    description = "Generate Jacoco coverage reports"
+
+    classDirectories = fileTree(
+            dir: '../app/build/intermediates/classes',
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/*$ViewInjector*.*',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*']
+    )
+
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files('../app/build/jacoco/testUnitTestDebug.exec')
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+}
+
 dependencies {
     // Unit testing dependencies.
     testCompile 'org.mockito:mockito-core:1.10.19'
@@ -95,6 +137,7 @@ dependencies {
         exclude module: 'hamcrest-library'
         exclude module: 'hamcrest-integration'
     }
+
     testCompile 'org.hamcrest:hamcrest-core:1.1'
     testCompile 'org.hamcrest:hamcrest-library:1.1'
     testCompile 'org.hamcrest:hamcrest-integration:1.1'
@@ -118,43 +161,6 @@ dependencies {
     }
 
 
-    apply plugin: 'jacoco'
 
-    jacoco {
-        // Use this version for upper ones are broken (with Gradle)
-        // https://github.com/jacoco/jacoco/issues/288
-        toolVersion = "0.7.1.201405082137"
-    }
-
-// Edit covered scope if needed
-// For my part I like having the coverage of both application and tests
-    def coverageSourceDirs = [
-            '../app/src'
-    ]
-
-    task jacocoTestReport(type: JacocoReport, dependsOn: "test") {
-        group = "Reporting"
-
-        description = "Generate Jacoco coverage reports"
-
-        classDirectories = fileTree(
-                dir: '../app/build/intermediates/classes',
-                excludes: ['**/R.class',
-                           '**/R$*.class',
-                           '**/*$ViewInjector*.*',
-                           '**/BuildConfig.*',
-                           '**/Manifest*.*']
-        )
-
-        additionalSourceDirs = files(coverageSourceDirs)
-        sourceDirectories = files(coverageSourceDirs)
-        executionData = files('../app/build/jacoco/testUnitTestDebug.exec')
-
-        reports {
-            xml.enabled = true
-            html.enabled = true
-        }
-
-    }
 }
 
