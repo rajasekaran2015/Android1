@@ -27,9 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 @Config(constants = BuildConfig.class)
 @RunWith(RobolectricGradleTestRunner.class)
-/**
- * Unit tests for the EmailValidator logic.
- */
+
 @SmallTest
 public class EmailValidatorTest {
 

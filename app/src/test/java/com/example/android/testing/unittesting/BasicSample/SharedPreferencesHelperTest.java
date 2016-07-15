@@ -17,13 +17,13 @@
 package com.example.android.testing.unittesting.BasicSample;
 
 import android.content.SharedPreferences;
+import android.test.suitebuilder.annotation.SmallTest;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.annotation.Config;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Calendar;
 
@@ -36,11 +36,9 @@ import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.when;
 
 
-/**
- * Unit tests for the {@link SharedPreferencesHelper} that mocks {@link SharedPreferences}.
- */
-@Config(constants = BuildConfig.class)
-@RunWith(RobolectricGradleTestRunner.class)
+
+@SmallTest
+@RunWith(MockitoJUnitRunner.class)
 public class SharedPreferencesHelperTest {
 
     private static final String TEST_NAME = "Test name";
