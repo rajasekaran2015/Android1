@@ -31,15 +31,11 @@ import static org.junit.Assert.assertTrue;
 @SmallTest
 public class EmailValidatorTest {
 
-   // private static final String TEST_NAME = "name@email.com";
 
-    //private static final String TEST_EMAIL = "name@email.co.uk";
-
-
-    @Test
-    public void emailValidator_CorrectEmailSimple_ReturnsTrue() {
-        assertTrue(EmailValidator.isValidEmail("name@email.com"));
-    }
+   // @Test
+    //public void emailValidator_CorrectEmailSimple_ReturnsTrue() {
+    //  assertTrue(EmailValidator.isValidEmail("name@email.com"));
+   // }
 
     @Test
     public void emailValidator_CorrectEmailSubDomain_ReturnsTrue() {
@@ -47,8 +43,8 @@ public class EmailValidatorTest {
     }
 
     //@Test
-   // public void emailValidator_InvalidEmailNoTld_ReturnsFalse() {
-       // assertFalse(EmailValidator.isValidEmail("name@email"));
+   //public void emailValidator_InvalidEmailNoTld_ReturnsFalse() {
+     //  assertFalse(EmailValidator.isValidEmail("name@email"));
     //}
 
    // @Test
