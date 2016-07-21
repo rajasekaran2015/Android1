@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.example.android.testing.unittesting.BasicSample.EmailValidatorTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2016-07-15T06:47:16" hostname="DS-8CDCD430B324" time="11.737">
-  <properties/>
-  <testcase name="emailValidator_CorrectEmailSimple_ReturnsTrue" classname="com.example.android.testing.unittesting.BasicSample.EmailValidatorTest" time="11.722"/>
-  <testcase name="emailValidator_CorrectEmailSubDomain_ReturnsTrue" classname="com.example.android.testing.unittesting.BasicSample.EmailValidatorTest" time="0.015"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

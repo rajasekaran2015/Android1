@@ -39,13 +39,13 @@ public class EmailValidatorTest {
 
     @Test
     public void emailValidator_CorrectEmailSubDomain_ReturnsTrue() {
-        assertTrue(EmailValidator.isValidEmail("name@email.co.uk"));
-    }
+       assertTrue(EmailValidator.isValidEmail("name@email.co.uk"));
+  }
 
     //@Test
    //public void emailValidator_InvalidEmailNoTld_ReturnsFalse() {
-     //  assertFalse(EmailValidator.isValidEmail("name@email"));
-    //}
+  //assertFalse(EmailValidator.isValidEmail("name@email"));
+  // }
 
    // @Test
    // public void emailValidator_InvalidEmailDoubleDot_ReturnsFalse() {
