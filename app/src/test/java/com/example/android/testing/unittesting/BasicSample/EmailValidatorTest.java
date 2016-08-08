@@ -19,14 +19,11 @@ package com.example.android.testing.unittesting.BasicSample;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.annotation.Config;
 
+import java.util.regex.Pattern;
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-@Config(constants = BuildConfig.class)
-@RunWith(RobolectricGradleTestRunner.class)
 
 @SmallTest
 public class EmailValidatorTest {
