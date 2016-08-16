@@ -14,8 +14,43 @@
  * limitations under the License.
  */
 
+plugins {
+    id "org.sonarqube" version "2.0.1"
+}
+
 apply plugin: 'com.android.application'
-apply plugin: 'jacoco'
+apply plugin: 'jacoco-android'
+
+sonarqube {
+    properties {
+        property "sonar.host.url","http://localhost:9000"
+        property "sonar.projectName", "AndroidSample"
+        property "sonar.projectKey", "org.sonarqube:android-sample"
+        property "sonar.sourceEncoding","UTF-8"
+        property "sonar.sources","."
+
+        property "sonar.java.binaries","./build/intermediates/classes/debug"
+        property "sonar.java.test.binaries","./build/intermediates/classes/test/debug"
+        property "sonar.jacoco.reportPath", "./build/jacoco/testDebugUnitTest.exec" // path to coverage reports
+        property "sonar.java.coveragePlugin", "jacoco"
+        property "sonar.jacoco.reportMissing.force.zero",true
+
+        property "sonar.exclusions","build/**,**/*.png"
+        property "sonar.import_unknown_files", true
+        property "sonar.android.lint.report", "./build/outputs/lint-results-debug.xml"
+        property "sonar.junit.reportsPath","./build/test-results/debug"
+    }
+}
+
+jacocoAndroidUnitTestReport {
+    csv.enabled false
+    html.enabled true
+    xml.enabled true
+}
+
+jacoco {
+    toolVersion = "0.7.5.201505241946"
+}
 
 repositories {
     maven { url 'http://repo1.maven.org/maven2' }
@@ -83,41 +118,7 @@ android {
     }
 }
 
-jacoco {
-    // Use this version for upper ones are broken (with Gradle)
-    // https://github.com/jacoco/jacoco/issues/288
-    toolVersion = "0.7.1.201405082137"
-    reportsDir = file("$buildDir/customJacocoReportDir")
-}
 
-def coverageSourceDirs = [
-        '../src/main/java/com/example/android/testing/unittesting/BasicSample/EmailValidator.class'
-]
-
-task jacocoTestReport(type: JacocoReport, dependsOn: "test") {
-    group = "Reporting"
-
-    description = "Generate Jacoco coverage reports"
-
-    classDirectories = fileTree(
-            dir: '../app/build/intermediates/classes',
-            excludes: ['**/R.class',
-                       '**/R$*.class',
-                       '**/*$ViewInjector*.*',
-                       '**/BuildConfig.*',
-                       '**/Manifest*.*']
-    )
-
-    additionalSourceDirs = files(coverageSourceDirs)
-    sourceDirectories = files(coverageSourceDirs)
-    executionData = files('../app/build/jacoco/testUnitTestDebug.exec')
-
-    reports {
-        xml.enabled = true
-        html.enabled = true
-    }
-
-}
 
 dependencies {
     // Unit testing dependencies.
